@@ -18,7 +18,7 @@ This template set up address the following issues:
 - `npm run dev` 
 - For changing the mounting and listening port, edit the port line in `wrangle.toml` and the ngrook call in `package.json` > script > dev > ngrook http (port)
 
-Your bot should react now to your messages with a 🏆 emoji
+### If everything went okay, your bot should react to your messages with a 🏆 emoji
  
-## Things to know
+#### Just in case
 - any file prefixed by `_` it's included in the .gitignore
