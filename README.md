@@ -4,7 +4,7 @@
 This template set up address the following issues:
   - Bot creation with BOT_TOKEN sourced from .dev.vars secrets, see [Cloudflare enviroment variables](https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard)
   - ngrok forward to port 8080 and auto-updates the telegram webHook to the ngrok public domain
-  - Setup Hono for using the telegram bot callback webhook, defaults bot api endpoint to /api/telegram/webhook
+  - Setup Hono for using the telegram bot callback webhook, defaults bot api endpoint to `/api/telegram/webhook`
 
 ## Installation
 - run `npm i` for dependecies
