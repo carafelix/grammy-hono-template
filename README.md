@@ -1,4 +1,4 @@
-# grammY + Hono + Cloudlflare Workers
+# grammY + Hono + Cloudflare Workers
 
 ## Description
 This template set up address the following issues:
