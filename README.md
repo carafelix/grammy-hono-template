@@ -16,7 +16,7 @@ This template set up address the following issues:
 
 ## Dev enviroment deployment
 - `npm run dev` 
-- If in the need to change the port, edit the port line in `wrangle.toml` and the ngrook call in the package.json > script > dev > ngrook http (port)
+- For changing the mounting and listening port, edit the port line in `wrangle.toml` and the ngrook call in `package.json` > script > dev > ngrook http (port)
 
 Your bot should react now to your messages with a 🏆 emoji
  
