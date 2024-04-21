@@ -7,8 +7,7 @@ export default {
     fetch(request: Request, env: myEnv, ctx: ExecutionContext) {
         const app = new Hono()
         app.all('/api/telegram/webhook', webhookCallback(getBot(env), 'hono'))
-
-        app.all('*',(c)=> c.text('browser message'))
+		app.all('*',(c)=> c.text('Any other call would receive this response'))
         app.onError((err)=>{
             return new Response(err.message)
         })
