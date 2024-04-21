@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "concurrently \"gnome-terminal --tab -- ngrok http 8080\" \"wrangler dev\" \"sleep 5 && npm run updateWebhook\"",
-    "updateWebhook": "curl -s http://localhost:4040/api/tunnels/ | jq -r '.tunnels[0].public_url' | xargs -I {} sh -c 'BOT_TOKEN=$(cat ./.dev.vars | grep -o 'BOT_TOKEN=[^[:space:]]*' | cut -d '=' -f 2); curl -X GET https://api.telegram.org/bot${BOT_TOKEN}/setWebhook?url={}/api/telegram/webhook'",
-    "start": "wrangler dev"
+    "deploy": "wrangler deploy && npm run deployWebhook ",
+    "dev": "concurrently -p '[{index}]-[{time}]' -t HH:mm:ss \"gnome-terminal --tab -- ngrok http 8080\" \"wrangler dev --test-scheduled\" \"sleep 5 && npm run devWebhook\"",
+    "devWebhook": "curl -s http://localhost:4040/api/tunnels/ | jq -r '.tunnels[0].public_url' | xargs -I {} sh -c 'BOT_TOKEN=$(cat ./.dev.vars | grep -o 'BOT_TOKEN=[^[:space:]]*' | cut -d '=' -f 2); curl -X GET https://api.telegram.org/bot${BOT_TOKEN}/setWebhook?url={}/api/telegram/webhook' | { cat; echo; }",
+    "start": "wrangler dev",
+    "testCron": "curl http://localhost:8080/__scheduled?cron=30+13+*+*+* | { cat; echo; }",
+    "deployWebhook": "grep -E '^(BOT_TOKEN|DEPLOY_URI)=' ./.dev.vars | awk -F= '/^BOT_TOKEN=/{bot_token=$2} /^DEPLOY_URI=/{deploy_uri=$2} END{printf \"https://api.telegram.org/bot%s/setWebhook?url=%s/api/telegram/webhook\", bot_token, deploy_uri}' | xargs -I {} curl -X GET {} | { cat; echo; }"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240405.0",
     "concurrently": "^8.2.2",
     "ngrok": "^5.0.0-beta.2",
     "wrangler": "^3.0.0"
