@@ -1,9 +1,15 @@
 import { Bot } from "grammy"
-import { myEnv } from "./main"
+import { MyTelegramContext, myEnv } from "./main"
 
 function getBot(env : myEnv){
-    const bot = new Bot(env.BOT_TOKEN)
-    bot.command('start',c => c)
+
+    const bot = new Bot<MyTelegramContext>(env.BOT_TOKEN)
+
+    bot.use(async (c, next) => {
+        c.env = env
+    })
+
+    bot.command('start',c => c.reply('started'))
     bot.on('message', c => c.react("🏆"))
     bot.catch((err)=> console.trace(err))
 
