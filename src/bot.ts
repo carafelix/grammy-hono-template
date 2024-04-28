@@ -7,6 +7,7 @@ function getBot(env : myEnv){
 
     bot.use(async (c, next) => {
         c.env = env
+        await next()
     })
 
     bot.command('start',c => c.reply('started'))

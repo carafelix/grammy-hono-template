@@ -1,4 +1,4 @@
-import { Env, ExecutionContext, Hono } from "hono"
+import { ExecutionContext, Hono } from "hono"
 import { webhookCallback } from "grammy";
 import getBot from "./bot";
 import { myEnv } from "./main";
